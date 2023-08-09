@@ -1,0 +1,16 @@
+extends layout
+block content
+    div.text-center
+        form(class ="signin" action="/login", method="POST")
+            if error
+                p.text-danger Error !{message}
+            div.input-container
+                label(for="username",) Username:
+                input(type="email", placeholder="Enter email", name="user_email_address", id="username", autoComplete="false")
+            div.input-container
+                label(for="password") Password:
+                input(type="password", placeholder="Enter password", name="user_password", id="password", autoComplete="false")
+            button(type="submit") Submit
+            div.input-link
+                <a type="button" href="/forgotpassword"  >forgot my password</a>
+                <a href="/signup" type="button" class="signup-button">sign up</a>

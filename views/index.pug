@@ -1,0 +1,12 @@
+extends layout
+block content
+    <section class="task-list">
+        <h2>Tasks</h2>
+        if user_id != undefined && user_id != null 
+            <div id="tasks"></div>
+        else 
+            div
+                img(src="images/home.png", class="responsive-img", alt="homepage")
+            div
+                p.text-center To Do is a task management app to help you stay organized and manage your day-to-day. You can use To Do to make shopping lists or task lists, take notes, record collections, plan an event, or set reminders to increase your productivity and focus on what matters to you.
+    </section>

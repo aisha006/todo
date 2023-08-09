@@ -1,0 +1,16 @@
+extends layout
+block content
+    div.text-center
+        form(class ="signin" action="/register", method="POST")
+            if error
+                p.text-danger Error !{message}
+            div.input-container
+                label(for="username",) Username:
+                input(type="text", placeholder="Enter Username", name="username", id="username")
+            div.input-container
+                label(for="email") Email:
+                input(type="email", placeholder="Enter email", name="email", id="email")
+            div.input-container
+                label(for="password") Password:
+                input(type="password", placeholder="Enter password", name="password", id="password")
+            button(type="submit") Submit

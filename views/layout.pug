@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(http-equi="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width", initial-scale="1.0")
+    title="Task list 2023"
+    link(rel='stylesheet', href='stylesheet/main.css')
+    <script src="javascipts/main.js"></script>
+  body
+    header
+        div.header
+            span Task List 2023
+            if user_id == undefined || user_id == null
+                <span><a href="/signin" type="button" class="login-button">login</a></span>
+            else
+                <span>Hello, !{user_id} <a href="/signout" type="button" class="login-button"> logout</a></span>
+
+        if user_id != undefined || user_id != null
+            <form id="new-task-form">
+                <input type="text" id="new-task-input" placeholder="what do you have planned" />
+                <input type="submit" id="new-task-submit" value="Add task" />
+            </form>    
+    main
+        if (success != undefined && success != '')
+            p.text-success !{messages.success}
+        section.task-list
+            block content

@@ -1,0 +1,292 @@
+:root {
+    --dark: #374151;
+    --darker: #1F2937;
+    --darkest: #111827;
+    --light: #EEE;
+    --gray: #6B7280;
+    --pink: #EC4899;
+    --purple: 8B5Cf6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'fira sans', sans-serif;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background: var(--dark);
+    color: #FFF;
+
+}
+
+header {
+    padding: 1rem 1rem;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+#new-task-form {
+    display: flex;
+}
+
+input,
+button {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+#new-task-input {
+    flex: 1 1 0%;
+    background-color: var(--darker);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    color: var(--light);
+    font-size: 1.25rem;
+}
+
+#new-task-input::placeholder {
+    color: var(--gray);
+}
+
+#new-task-submit {
+    color: var(--pink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-image: linear-gradient(to right, pink, purple);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+#new-task-submit:hover {
+    opacity: o.8;
+}
+
+#new-task-submit:active {
+    opacity: 0.6;
+}
+
+main {
+    flex: 1 1 0%;
+    padding: 1rem 0rem;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.task-list {
+    padding: 1rem 0rem;
+}
+
+.task-list h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+#tasks .task {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--darkest);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+#tasks .task .content {
+    flex: 1 1 0%;
+}
+
+#tasks .task .content .text {
+    color: var(--light);
+    font-size: 1.125rem;
+    width: 100%;
+    display: block;
+    transition: 0.4s;
+}
+
+#tasks .task .content .text:not(:read-only) {
+    color: var(--pink);
+
+}
+
+#tasks .task .actions {
+    display: flex;
+    margin: 0 -0.5rem;
+}
+
+#tasks .task .actions button {
+    cursor: pointer;
+    margin: 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.4s;
+}
+
+#tasks .task .actions button:hover {
+    opacity: 0.8;
+}
+
+#tasks .task .actions button:active {
+    opacity: 0.6;
+}
+
+#tasks .task .actions .edit {
+    background-image: linear-gradient(to right, var(--pink), var(--purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: var(--pink);
+}
+
+#tasks .task .actions .delete {
+    color: crimson;
+}
+
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header>span {
+    font-size: 28px;
+}
+
+.login-button {
+    color: var(--pink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-image: linear-gradient(to right, pink, rgb(21, 0, 128));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+    border: 1px wheat solid;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.login-button:hover {
+    background-image: linear-gradient(to right, rgb(240, 232, 233), rgb(224, 222, 231));
+}
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: left;
+    align-content: left;
+    width: 70vh;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+
+/* Full-width inputs */
+input[type=text],
+input[type=email],
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #030000;
+    border-radius: 20px;
+    color: #EEE;
+}
+
+/* Set a style for all buttons */
+button {
+    color: var(--pink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-image: linear-gradient(to right, pink, rgb(21, 0, 128));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+    border: 1px wheat solid;
+    border-radius: 20px;
+    padding: 10px;
+
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+
+form.signin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-link {
+    display: flex;
+    margin-top: 20px;
+    gap: 200px;
+    background-image: linear-gradient(to right, pink, rgb(21, 0, 128));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.text-danger {
+    color: red;
+    padding: 5px;
+}
+
+.text-success {
+    color: green;
+    padding: 5px;
+}
+
+.input-container.pass {
+    input[type=password]::-webkit-contacts-auto-fill-button,
+    input[type=password]::-webkit-credentials-auto-fill-button {
+        visibility: hidden;
+        display: none;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+        margin: 0;
+    }
+
+}
+.responsive-img {
+    width: 100%;
+    height: auto;
+  }
