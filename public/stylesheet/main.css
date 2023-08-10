@@ -205,6 +205,10 @@ main {
     padding-right: 20px;
 }
 
+.field > svg {
+    margin-right: 20px;
+  }
+
 
 
 /* Full-width inputs */
@@ -213,10 +217,7 @@ input[type=email],
 input[type=password] {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
     display: inline-block;
-    border: 1px solid #030000;
-    border-radius: 20px;
     color: #EEE;
 }
 
@@ -274,19 +275,24 @@ form.signin {
     padding: 5px;
 }
 
-.input-container.pass {
-    input[type=password]::-webkit-contacts-auto-fill-button,
-    input[type=password]::-webkit-credentials-auto-fill-button {
-        visibility: hidden;
-        display: none;
-        pointer-events: none;
-        height: 0;
-        width: 0;
-        margin: 0;
-    }
 
-}
 .responsive-img {
     width: 100%;
     height: auto;
   }
+
+  .icon {
+    padding: 10px;
+    color: green;
+    min-width: 50px;
+    text-align: center;
+    position: absolute;
+}
+
+.field {
+    display: flex;
+    justify-items: flex-end;
+    border: 1px solid #030000;
+    border-radius: 20px;
+    margin: 8px 0;
+}
