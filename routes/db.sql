@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS tasks (
+    id INT AUTO_INCREMENT,
+    title VARCHAR(255),
+    user_id int,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_task_user_id
+      FOREIGN KEY (user_id) REFERENCES user_login(user_id)
+);

@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = require('./todos');
 const database = require('../database');
 const { json } = require("body-parser");
 const { query } = require('express-validator')
@@ -9,7 +9,31 @@ const randtoken = require('rand-token');
 const { redirect } = require("express/lib/response");
 
 router.get("/", (req, res, next) => {
-    res.render("index", {"user_id": req.session.user_id});
+    var user_id = req.session.user_id;
+    var user_name = req.session.user_name;
+    var error = false;
+    var message = "";
+    var tasks = [];
+    console.log(user_id);
+    console.log(user_name);
+    if (user_id != undefined || user_id != null) {
+
+        database.query('SELECT * from tasks where user_id=' + user_id, function (err, rows, fields) {
+            if (!err) {
+                rows.forEach(row => {
+                tasks.push({"task_title": row['title'], "task_id": row['id']});
+                })
+            } else {
+                console.log(err);
+                error = true;
+                message = "Error while performing Query.";
+            }
+            res.render("index", { "user_name": user_name, "user_id": user_id, "error": error, "message": message, "tasks": tasks });
+    
+        });
+    } else {
+        res.render("index", { "user_name": user_name, "user_id": user_id, "error": error, "message": message, "tasks": tasks });
+    }
 });
 
 router.get("/signin", (req, res, next) => {
@@ -19,7 +43,7 @@ router.get("/signup", (req, res, next) => {
     res.render("register");
 });
 router.get("/signout", (req, res, next) => {
-    req.session.destroy(function(){
+    req.session.destroy(function () {
         console.log("Bye");
     });
     res.redirect("/");
@@ -43,7 +67,8 @@ router.post('/login', function (request, response, next) {
                 for (var count = 0; count < data.length; count++) {
                     if (data[count].user_password == user_password) {
                         console.log(request.session)
-                        request.session.user_id = data[count].user_name;
+                        request.session.user_name = data[count].user_name;
+                        request.session.user_id = data[count].user_id;
 
                         response.redirect("/");
                     }
@@ -86,11 +111,11 @@ router.post('/register', (request, response) => {
         var user_name = request.body.username;
         var user_email_address = request.body.email;
         var user_password = request.body.password;
-        var query = "INSERT INTO user_login (user_email, user_name, user_password, user_session_id) VALUES ('"+user_email_address+"','"+ user_name +"','"+user_password+"','null');";
-        
+        var query = "INSERT INTO user_login (user_email, user_name, user_password, user_session_id) VALUES ('" + user_email_address + "','" + user_name + "','" + user_password + "','null');";
+
         database.query(query, function (err, result) {
-            if(err == null){
-                
+            if (err == null) {
+
                 response.redirect("/signin");
             } else {
                 response.render('register', { "error": true, "message": err.sqlMessage });
@@ -129,7 +154,7 @@ router.post('/addtodo', function (req, res) {
 function sendEmail(email, token) {
     var email = email;
     var token = token;
- 
+
     var mail = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -137,15 +162,15 @@ function sendEmail(email, token) {
             pass: 'vihbuwsbekmmbxou' // Your password
         }
     });
- 
+
     var mailOptions = {
         from: 'anonymj0001@gmail.com',
         to: email,
         subject: 'Reset Password Link - nicesnippets.com',
         html: '<p><span class="str">You requested for reset password, kindly use this </span><a href="http://localhost:8080/reset-password?token=' + token + '"><span class="str">link</span></a><span class="str"> to reset your password</span></p>'
     };
- 
-    mail.sendMail(mailOptions, function(error, info) {
+
+    mail.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error)
         } else {
@@ -154,35 +179,35 @@ function sendEmail(email, token) {
     });
 }
 // send reset password link in email //
-router.post('/reset-password-email', function(req, res, next) {
- 
+router.post('/reset-password-email', function (req, res, next) {
+
     var email = req.body.email;
- 
+
     //console.log(sendEmail(email, fullUrl));
- 
-    database.query('SELECT * FROM user_login WHERE user_email ="' + email + '"', function(err, result) {
+
+    database.query('SELECT * FROM user_login WHERE user_email ="' + email + '"', function (err, result) {
         if (err) {
             res.render('forgot_password', { "error": true, "message": err.sqlMessage });
         }
-         
+
         var type = ''
         var msg = ''
-   
+
         console.log(result[0]);
-     
+
         if (result[0] != undefined && result[0].user_email.length > 0) {
-           var token = randtoken.generate(20);
-           var sent = sendEmail(email, token);
- 
+            var token = randtoken.generate(20);
+            var sent = sendEmail(email, token);
+
             if (sent != '0') {
-                database.query('UPDATE user_login SET user_token="'+token+'" WHERE user_email ="' + email + '"', function(err, result) {
-                    if(err){
+                database.query('UPDATE user_login SET user_token="' + token + '" WHERE user_email ="' + email + '"', function (err, result) {
+                    if (err) {
                         res.render('forgot_password', { "error": true, "message": err.sqlMessage });
                     }
                 })
                 type = 'success';
                 msg = 'The reset password link has been sent to your email address';
-                res.render('forgot_password', {"error": false, "message": msg})
+                res.render('forgot_password', { "error": false, "message": msg })
             } else {
                 type = 'error';
                 msg = 'Something goes to wrong. Please try again';
@@ -198,13 +223,13 @@ router.post('/reset-password-email', function(req, res, next) {
 })
 
 // home page //
-router.get('/forgotpassword', function(req, res, next) {
+router.get('/forgotpassword', function (req, res, next) {
     res.render('forgot_password');
 });
 
 
 // reset page //
-router.get('/reset-password', function(req, res, next) {
+router.get('/reset-password', function (req, res, next) {
     res.render('reset_password', {
         title: 'Reset Password Page',
         token: req.query.token
@@ -212,10 +237,10 @@ router.get('/reset-password', function(req, res, next) {
 });
 
 // update password to database //
-router.post('/update-password', function(req, res, next) {
+router.post('/update-password', function (req, res, next) {
     var token = req.body.token;
     var password = req.body.password;
-    database.query('SELECT * FROM user_login WHERE user_token ="' + token + '"', function(err, result) {
+    database.query('SELECT * FROM user_login WHERE user_token ="' + token + '"', function (err, result) {
         if (err) {
             res.render('reset_password', { "error": true, "message": err.sqlMessage });
         }
@@ -235,8 +260,8 @@ router.post('/update-password', function(req, res, next) {
             //         });
             //     });
             // });
-            database.query('UPDATE user_login SET user_password="'+ password +'" WHERE user_email ="' + result[0].email + '"', function(err, result) {
-                if(err) throw err
+            database.query('UPDATE user_login SET user_password="' + password + '" WHERE user_email ="' + result[0].email + '"', function (err, result) {
+                if (err) throw err
             });
             type = 'success';
             msg = 'Your password has been updated successfully';

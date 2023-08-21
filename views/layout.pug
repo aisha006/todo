@@ -11,11 +11,11 @@ html
   body
     header
         div.header
-            span Task List 2023
+            span <a href="/" class="logo">Task List 2023</a>
             if user_id == undefined || user_id == null
                 <span><a href="/signin" type="button" class="login-button">login</a></span>
             else
-                <span>Hello, !{user_id} <a href="/signout" type="button" class="login-button"> logout</a></span>
+                <span>Hello, !{user_name} <a href="/signout" type="button" class="login-button"> logout</a></span>
 
         if user_id != undefined || user_id != null
             <form id="new-task-form">

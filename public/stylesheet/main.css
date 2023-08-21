@@ -21,14 +21,18 @@ body {
     min-height: 100%;
     background: var(--dark);
     color: #FFF;
-
 }
+
 
 header {
     padding: 1rem 1rem;
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
+    -moz-box-shadow:0 5px 5px rgba(224, 115, 189, 0.75);
+    -webkit-box-shadow: 0 5px 5px rgba(161, 106, 133, 0.75);
+    box-shadow: 0 5px 5px rgba(225, 126, 169, 0.75);
+    
 }
 
 header h1 {
@@ -168,11 +172,20 @@ main {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+   
+   
 }
 
-.header>span {
+.logo {
     font-size: 28px;
+    color: #eba7c9;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase ;
+   
 }
+
+
 
 .login-button {
     color: var(--pink);
@@ -296,3 +309,28 @@ form.signin {
     border-radius: 20px;
     margin: 8px 0;
 }
+
+.text-center {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 100px;
+    margin-top: 5%;
+    color: #eba7c9;
+
+}
+
+.text-muted {
+    padding: auto;
+    margin-top: 20px;
+    color: #380430;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+  }
+  #progress {
+    width: 0%;
+    height: 100%;
+    background-color: #4CAF50;
+  } 
